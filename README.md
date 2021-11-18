@@ -8,6 +8,6 @@ simple flask media hosting and unity web image retrieval example for GCT700('21 
 (python part requires Flask for hosting and pandas for data handling)
 
 ## TODO
-> serve other info at the same time(title,artist, etc..)
-> add searching features for the db
-> add filtering features
+* serve other info at the same time(title,artist, etc..)
+* add searching features for the db
+* add filtering features
