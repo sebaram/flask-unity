@@ -7,11 +7,23 @@ using UnityEngine.Networking;
 public class GetDisplayIMG : MonoBehaviour
 {
     public GameObject rawImage;
-    public string img_url_pre = "http://localhost:12572/id/";
+    public string info_url_pre = "http://localhost:12572/info/id/";
+    public string img_url_pre = "http://localhost:12572/img/id/";
 
+    IEnumerator  DlInfo(string addr){   
+        UnityWebRequest request = UnityWebRequest.Get(addr);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError ||
+            request.result == UnityWebRequest.Result.ProtocolError){
+                Debug.LogError(request.error);
+        }
+        else{
+            Debug.Log("DlInfo:: retrieved: "+request.downloadHandler.text);
+        }
+            
+    }
     IEnumerator  DlImage(object[] parms){   
-        Debug.Log("DownloadImage: call");
-
         RawImage img = (RawImage)parms[0];
         UnityWebRequest request = UnityWebRequestTexture.GetTexture((string)parms[1]);
         yield return request.SendWebRequest();
@@ -21,9 +33,7 @@ public class GetDisplayIMG : MonoBehaviour
                 Debug.LogError(request.error);
         }
         else{
-
             img.texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
-            Debug.Log("DownloadImage: texture set");
         }
             
     }
@@ -42,22 +52,26 @@ public class GetDisplayIMG : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             object[] parms = new object[2]{rawImage.GetComponent<RawImage> (), img_url_pre+"0"};
+            StartCoroutine("DlInfo", info_url_pre+"0");
             StartCoroutine("DlImage", parms);
 
         }
         else if (Input.GetKeyDown(KeyCode.Alpha1)) {
             object[] parms = new object[2]{rawImage.GetComponent<RawImage> (), img_url_pre+"1"};
             StartCoroutine("DlImage", parms);
+            StartCoroutine("DlInfo", info_url_pre+"1");
 
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2)) {
             object[] parms = new object[2]{rawImage.GetComponent<RawImage> (), img_url_pre+"2"};
             StartCoroutine("DlImage", parms);
+            StartCoroutine("DlInfo", info_url_pre+"2");
 
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3)) {
             object[] parms = new object[2]{rawImage.GetComponent<RawImage> (), img_url_pre+"3"};
             StartCoroutine("DlImage", parms);
+            StartCoroutine("DlInfo", info_url_pre+"3");
 
         }
     }

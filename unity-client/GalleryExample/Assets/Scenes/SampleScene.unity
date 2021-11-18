@@ -516,7 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rawImage: {fileID: 0}
-  img_url_pre: http://localhost:12572/id/0
+  img_url_pre: http://localhost:12572/img/id/
 --- !u!114 &2072784463
 MonoBehaviour:
   m_ObjectHideFlags: 0
